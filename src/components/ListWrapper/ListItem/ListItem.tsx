@@ -1,29 +1,30 @@
 import React from "react";
-import "./ListItem.css";
+import styles from "./ListItem.module.scss";
+import ButtonLink from "../../Button/ButtonLink";
+import Title from "../../Title/Titls";
 
 export interface ListItemProps {
   name: string;
-  src: string;
+  src?: string;
   description: string;
   facebookLink: string;
+
 }
 
-const ListItem = ({ name, src, description, facebookLink }: ListItemProps) => (
-  <li className="listItem__wrapper">
-    <img src={src} className="listItem__image" alt={name} />
-    <div>
-      <h2 className="listItem__name"> {name}</h2>
-      <p className="listItem__description">{description}</p>
-      <a
-        href={facebookLink}
-        className="listItem__button"
-        target="_blank"
-        rel="noreferrer"
-      >
-        visit fb page
-      </a>
-    </div>
-  </li>
-);
+const ListItem = ({ name, src, description, facebookLink }: ListItemProps) => {
+
+  const ImageTag = src ? "img" : "div";
+
+  return (
+    <li className={styles.wrapper}>
+      <ImageTag src={src} className={src ? styles.image : styles.imageNone} alt={name} />
+      <div>
+        <Title text={name} />
+        <p className={styles.description}>{description}</p>
+        <ButtonLink href={facebookLink} text="Poznaj mnie lepiej!" />
+      </div>
+    </li>
+  );
+}
 
 export default ListItem;

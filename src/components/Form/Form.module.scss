@@ -1,0 +1,43 @@
+@keyframes appear {
+    0% {
+        opacity: 0;
+        top: -300px;
+    }
+    100% {
+        opacity: 1;
+        top: 0;
+    }
+  }
+
+.wrapper{
+    width: 50%;
+    margin: 50px auto 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: appear 2s ease;
+}
+
+.form{
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+ 
+
+
+.button{
+    font-weight: 400;
+    background: #e08283;
+    border: 2px solid #e08283;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 75%;
+}

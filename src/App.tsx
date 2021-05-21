@@ -3,46 +3,73 @@ import "./index.css";
 import ListWrapper from "./components/ListWrapper/ListWrapper";
 import ImageAssets from "./constants/ImageAssets";
 import { ListItemProps } from "./components/ListWrapper/ListItem/ListItem";
+import Form from "./components/Form/Form";
 
 const initialStateArray: ListItemProps[] = [
   {
-    src: ImageAssets.maltanczyk,
     name: "Maltańczyk",
+    facebookLink: "https://www.facebook.com/groups/1085666428242041",
+    src: ImageAssets.maltanczyk,
     description:
       "Jest to typ psa pieszczocha. 100% miłości do świata. Zakochasz się w tej rasie od pierwszego wylizania Twojego buziaczka.",
-    facebookLink: "https://www.facebook.com/groups/1085666428242041",
   },
   {
-    src: ImageAssets.mops,
     name: "Mops",
+    facebookLink: "https://www.facebook.com/groups/mopsMiHR",
+    src: ImageAssets.mops,
     description:
       "Towarzyski psiak, o wesołym i pogodnym uosobieniu. Taki właśnie jest mops. Psiaki tej rasy zaliczamy do sekcji psów małych, molosowatych",
-    facebookLink: "https://www.facebook.com/groups/mopsMiHR",
   },
   {
-    src: ImageAssets.goldenRetriver,
     name: "Golden Retriver",
+    facebookLink: "https://www.facebook.com/groups/mopsMiHR",
+    src: ImageAssets.goldenRetriver,
     description:
       "Golden retrievier jest postrzegany przede wszystkim jako pies przyjazny i niezwykle rodzinny. Należy jednak pamiętać, że jest to również pies myśliwski.",
-    facebookLink: "https://www.facebook.com/groups/mopsMiHR",
   },
   {
-    src: ImageAssets.chihuahua,
     name: "Chihuahua",
+    facebookLink: "https://www.facebook.com/groups/1056690141123166",
+    src: ImageAssets.chihuahua,
     description:
       "Niezaprzeczalnie są to psiaki wyjątkowo żywiołowe i energiczne. Rasa zaliczana jest do grona bardzo małych psów.",
-    facebookLink: "https://www.facebook.com/groups/1056690141123166",
   },
 ];
 
-class App extends React.Component {
+interface State {
+  items: ListItemProps[];
+}
+
+// React.Component<Propsy, State> 
+// trzeba zadeklarowac interfejsy
+
+
+class App extends React.Component<{}, State> {
   state = {
     items: [...initialStateArray],
   }
+
+  addItem = (e: any) => {
+    e.preventDefault();
+    const newItem = {
+      name: e.target[0].value,
+      facebookLink: e.target[1].value,
+      src: e.target[2].value,
+      description: e.target[3].value,
+    }
+
+    this.setState(prevState => ({
+      items: [...prevState.items, newItem]
+    }));
+
+    e.target.reset();
+  }
+
   render() {
     return (
-      <div>
+      <div className="app__wrapper">
         <ListWrapper items={this.state.items} />
+        <Form submitFn={this.addItem} />
       </div>
     )
   }
