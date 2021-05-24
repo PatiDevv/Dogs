@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ListItem.module.scss";
-import ButtonLink from "../../Button/ButtonLink";
-import Title from "../../Title/Titls";
+import ButtonLink from "../Button/ButtonLink";
+import Title from "../Title/Titls";
 
 export interface ListItemProps {
   name: string;

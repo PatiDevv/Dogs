@@ -1,8 +1,8 @@
 import React from "react";
 import "./index.css";
-import ListWrapper from "./components/ListWrapper/ListWrapper";
+import List from "./components/List/List";
 import ImageAssets from "./constants/ImageAssets";
-import { ListItemProps } from "./components/ListWrapper/ListItem/ListItem";
+import { ListItemProps } from "./components/List/ListItem";
 import Form from "./components/Form/Form";
 
 const initialStateArray: ListItemProps[] = [
@@ -68,7 +68,7 @@ class App extends React.Component<{}, State> {
   render() {
     return (
       <div className="app__wrapper">
-        <ListWrapper items={this.state.items} />
+        <List items={this.state.items} />
         <Form submitFn={this.addItem} />
       </div>
     )
