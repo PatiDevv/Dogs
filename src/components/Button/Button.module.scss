@@ -8,3 +8,11 @@
     text-decoration: none;
     font-size: 75%;
   }
+
+  .secondary{
+    @extend .button;
+
+    background-color: #e08283;
+    color: #fff;
+    font-size: 95%;
+}

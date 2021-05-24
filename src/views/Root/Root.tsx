@@ -1,9 +1,12 @@
 import React from "react";
 import "./index.css";
-import List from "./components/List/List";
-import ImageAssets from "./constants/ImageAssets";
-import { ListItemProps } from "./components/List/ListItem";
-import Form from "./components/Form/Form";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ImageAssets from "../../constants/ImageAssets";
+import { ListItemProps } from "../../components/List/ListItem";
+import NotesView from "../NotesView/NotesView"
+import ArticleView from "../ArticleView/ArticleView"
+import FacebookView from "../FacebookView/FacebookView"
+import Header from "../../components/Header/Header";
 
 const initialStateArray: ListItemProps[] = [
   {
@@ -44,7 +47,7 @@ interface State {
 // trzeba zadeklarowac interfejsy
 
 
-class App extends React.Component<{}, State> {
+class Root extends React.Component<{}, State> {
   state = {
     items: [...initialStateArray],
   }
@@ -67,12 +70,19 @@ class App extends React.Component<{}, State> {
 
   render() {
     return (
-      <div className="app__wrapper">
-        <List items={this.state.items} />
-        <Form submitFn={this.addItem} />
-      </div>
-    )
+      <BrowserRouter>
+        <>
+          <Header />
+          <h1>Hello World</h1>
+          <Switch>
+            <Route exact path="/" component={FacebookView} />
+            <Route path="/articles" component={ArticleView} />
+            <Route path="/notes" component={NotesView} />
+          </Switch>
+        </>
+      </BrowserRouter>
+    );
   }
 }
 
-export default App;
+export default Root;
