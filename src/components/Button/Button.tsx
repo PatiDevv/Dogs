@@ -4,15 +4,14 @@ import styles from "./Button.module.scss";
 interface ButtonProps {
     text: string;
     secondary?: boolean;
+    onClick?: (e: any) => void;
 }
 
-const Button = ({ text, secondary }: ButtonProps) => {
-
+const Button = ({ text, secondary, onClick }: ButtonProps) => {
     const buttonClass = secondary ? styles.secondary : styles.button;
 
     return (
-
-        <button className={buttonClass} type="submit">{text}</button>
+        <button className={buttonClass} onClick={onClick} type="submit">{text}</button>
     );
 };
 

@@ -7,6 +7,7 @@ import NotesView from "../NotesView/NotesView"
 import ArticleView from "../ArticleView/ArticleView"
 import FacebookView from "../FacebookView/FacebookView"
 import Header from "../../components/Header/Header";
+import Modal from "../../components/Modal/Modal"
 
 const initialStateArray: ListItemProps[] = [
   {
@@ -41,15 +42,18 @@ const initialStateArray: ListItemProps[] = [
 
 interface State {
   items: ListItemProps[];
+  isModalOpen: boolean,
+
 }
 
 // React.Component<Propsy, State> 
 // trzeba zadeklarowac interfejsy
 
-
 class Root extends React.Component<{}, State> {
   state = {
     items: [...initialStateArray],
+    isModalOpen: true,
+
   }
 
   addItem = (e: any) => {
@@ -68,17 +72,25 @@ class Root extends React.Component<{}, State> {
     e.target.reset();
   }
 
+  openModal = () => this.setState({ isModalOpen: true })
+  closeModal = () => this.setState({ isModalOpen: false })
+
+
+
   render() {
+    const { isModalOpen } = this.state;
+
     return (
       <BrowserRouter>
         <>
-          <Header />
+          <Header openModalFn={this.openModal} />
           <h1>Hello World</h1>
           <Switch>
             <Route exact path="/" component={FacebookView} />
             <Route path="/articles" component={ArticleView} />
             <Route path="/notes" component={NotesView} />
           </Switch>
+          {isModalOpen && <Modal closeModalFn={this.closeModal} />}
         </>
       </BrowserRouter>
     );
