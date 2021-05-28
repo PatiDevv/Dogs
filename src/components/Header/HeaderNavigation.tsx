@@ -9,21 +9,21 @@ const Navigation = () => (
                 <NavLink exact
                     activeClassName={styles.navItemLinkActive}
                     className={styles.navItemLink} to="/">
-                    facebook
+                    opis
                 </NavLink>
             </li>
             <li className={styles.navItem}>
                 <NavLink exact
                     activeClassName={styles.navItemLinkActive}
                     className={styles.navItemLink} to="/articles">
-                    articles
+                    artykuły
                 </NavLink>
             </li>
             <li className={styles.navItem}>
                 <NavLink exact
                     activeClassName={styles.navItemLinkActive}
                     className={styles.navItemLink} to="/notes">
-                    notes
+                    notatki
                 </NavLink>
             </li>
         </ul>

@@ -1,4 +1,5 @@
 import React from "react"
+import AppContext from "../../context";
 import styles from "./Form.module.scss";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
@@ -28,53 +29,75 @@ const descriptions = {
 class Form extends React.Component<Props> {
 
     state = {
-        activeOption: types.facebook as Types,
+        type: types.facebook as Types,
+        title: " ",
+        link: " ",
+        image: " ",
+        description: " ",
     }
 
     handleRadioButtonState = (type: string) => {
-        this.setState({ activeOption: type, })
+        this.setState({ type })
+    }
+
+    handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+
+        console.log(`
+        title: ${this.state.title},
+        link: ${this.state.link}
+        image: ${this.state.image},
+        description: ${this.state.description}
+        `
+        );
     }
 
     render() {
 
         const { submitFn } = this.props;
-        const { activeOption } = this.state
+        const { type } = this.state
 
 
         return (
-            <div className={styles.wrapper}>
-                <Title text={"Dodaj " + descriptions[activeOption]} />
+            <AppContext.Consumer>
+                {(context) => (<div className={styles.wrapper}>
+                    <Title text={"Dodaj " + descriptions[type]} />
 
-                <form autoComplete="off" className={styles.form} onSubmit={submitFn}>
-                    <div className={styles.inputWrapper}>
-                        <RadioInput htmlFor={types.facebook} id={types.facebook}
-                            checked={activeOption === types.facebook}
-                            onChange={() => this.handleRadioButtonState(types.facebook)}
-                            label="Facebook" />
+                    <form autoComplete="off" className={styles.form} onSubmit={(e) => context.addItem(e, this.state)}>
+                        <div className={styles.inputWrapper}>
+                            <RadioInput htmlFor={types.facebook} id={types.facebook}
+                                checked={type === types.facebook}
+                                onChange={() => this.handleRadioButtonState(types.facebook)}
+                                label="Facebook" />
 
-                        <RadioInput htmlFor={types.article} id={types.article}
-                            checked={activeOption === types.article}
-                            onChange={() => this.handleRadioButtonState(types.article)}
-                            label="Artykuł" />
+                            <RadioInput htmlFor={types.article} id={types.article}
+                                checked={type === types.article}
+                                onChange={() => this.handleRadioButtonState(types.article)}
+                                label="Artykuł" />
 
-                        <RadioInput htmlFor={types.note} id={types.note}
-                            checked={activeOption === types.note}
-                            onChange={() => this.handleRadioButtonState(types.note)}
-                            label="Notatka" />
-                    </div>
+                            <RadioInput htmlFor={types.note} id={types.note}
+                                checked={type === types.note}
+                                onChange={() => this.handleRadioButtonState(types.note)}
+                                label="Notatka" />
+                        </div>
 
-                    <Input name="name" label={activeOption === types.facebook ? "Nazwa" : "Tytuł"} maxLength={30} />
-
-
-                    {activeOption === types.facebook ? (<Input name="link" label="Link do grupy zkwp fci na fb" />) : null}
-
-                    {activeOption !== types.note ? (<Input name="image" label="Obrazek" />) : null}
+                        <Input onChange={this.handleInputChange} value={this.state.title} name="title" label={type === types.facebook ? "Nazwa" : "Tytuł"} maxLength={30} />
 
 
-                    <Input name="description" label={activeOption === types.facebook ? "Opis" : "Treść"} componentType="textarea" />
-                    <Button text="Dodaj" />
-                </form>
-            </div>
+                        {type === types.facebook ? (<Input onChange={this.handleInputChange} value={this.state.link} name="link" label="Link do grupy zkwp fci na fb" />) : null}
+
+                        {type !== types.note ? (<Input onChange={this.handleInputChange} value={this.state.image} name="image" label="Obrazek" />) : null}
+
+
+                        <Input onChange={this.handleInputChange} value={this.state.description} name="description" label={type === types.facebook ? "Opis" : "Treść"} componentType="textarea" />
+
+                        <Button text="Dodaj" />
+                    </form>
+                </div>)}
+            </AppContext.Consumer>
         )
     }
 }

@@ -7,9 +7,12 @@ interface PropsInput {
     label: string;
     maxLength?: number;
     componentType?: 'textarea' | 'input'
+    onChange?: (e: any) => void;
+    value: string
+
 }
 
-export default function Input({ componentType = 'input', name, label, maxLength }: PropsInput) {
+export default function Input({ componentType = 'input', name, label, maxLength, ...props }: PropsInput) {
 
     const inputProps = {
         name: name,
@@ -20,11 +23,11 @@ export default function Input({ componentType = 'input', name, label, maxLength 
     }
 
     return (
-        <div className={styles.formItem}>
+        <div className={styles.formItem}  >
             {
                 componentType === 'textarea' ?
-                    <textarea className={styles.textarea}  {...inputProps} /> :
-                    <input type="text" className={styles.input}  {...inputProps} />
+                    <textarea className={styles.textarea}  {...inputProps} onChange={props.onChange} value={props.value} /> :
+                    <input type="text" className={styles.input}  {...inputProps} {...props} />
             }
             <label className={styles.label} htmlFor={name}>
                 {label}

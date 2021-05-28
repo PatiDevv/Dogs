@@ -4,11 +4,18 @@ import styles from "./List.module.scss";
 
 const List = ({ items }: { items: ListItemProps[] }) => {
   return (
-    <ul className={styles.wrapper}>
-      {items.map((item) => (
-        <ListItem key={item.name} {...item} />
-      ))}
-    </ul>
+    <>
+
+      {items.length  ? 
+      
+        ( <ul className={styles.wrapper}>
+        {items.map((item) => (
+          <ListItem key={item.title} {...item} />
+        ))}</ul>) 
+        
+        : 
+        <h1 className={styles.noItems}>Dodaj, co tylko chcesz! :) </h1>}
+    </>
   );
 };
 

@@ -4,24 +4,25 @@ import ButtonLink from "../Button/ButtonLink";
 import Title from "../Title/Titls";
 
 export interface ListItemProps {
-  name: string;
+  title: string;
   src?: string;
   description: string;
-  facebookLink: string;
+  link: string;
 
 }
 
-const ListItem = ({ name, src, description, facebookLink }: ListItemProps) => {
+const ListItem = ({ title, src, description, link }: ListItemProps) => {
 
   const ImageTag = src ? "img" : "div";
 
   return (
     <li className={styles.wrapper}>
-      <ImageTag src={src} className={src ? styles.image : styles.imageNone} alt={name} />
+      {src && <ImageTag src={src} className={src ? styles.image : styles.imageNone} alt={title} />}
+
       <div>
-        <Title text={name} />
+        <Title text={title} />
         <p className={styles.description}>{description}</p>
-        <ButtonLink href={facebookLink} text="Poznaj mnie lepiej!" />
+        <ButtonLink href={link} text="Poznaj mnie lepiej!" />
       </div>
     </li>
   );
